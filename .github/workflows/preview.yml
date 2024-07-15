@@ -1,0 +1,39 @@
+name: Preview Pull Requests
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: ci-${{ github.ref }}
+
+jobs:
+  build-and-preview:
+    name: Build and Preview Pull Request
+    runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
+    steps:
+      - name: Build and Preview Pull Request
+        uses: chvmvd/build-deploy-and-preview-action@v1.2.0
+        with:
+          type: docusaurus
+          package-manager: yarn
+          pr-preview: true
+          umbrella-dir: pr-preview
+
+  remove-preview:
+    name: Remove Pull Request Preview
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Remove Preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: .
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: remove

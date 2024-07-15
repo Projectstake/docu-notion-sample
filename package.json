@@ -4,7 +4,7 @@
   "private": false,
   "scripts": {
     "clear-docs": "rimraf ./docs/",
-    "pull-test-tagged": "yarn clear-docs && cross-var yarn docu-notion -n $DOCU_NOTION_INTEGRATION_TOKEN -r $DOCU_NOTION_SAMPLE_ROOT_PAGE -m ./docs -i ./static/notion_imgs -p /notion_imgs/ --status-tag test",
+    "pull:status-tag": "cross-var yarn docu-notion -n $DOCU_NOTION_INTEGRATION_TOKEN -r $DOCU_NOTION_SAMPLE_ROOT_PAGE -m ./docs -i ./static/notion_imgs -p /notion_imgs/ --status-tag",
     "pull:latest": "yarn clear-docs && cross-var npx @sillsdev/docu-notion -n $DOCU_NOTION_INTEGRATION_TOKEN -r $DOCU_NOTION_SAMPLE_ROOT_PAGE -m ./docs -i ./static/notion_imgs -p /notion_imgs/",
     "//pull": "This uses the specific version of docu-notion in yarn.lock, not necessarily the latest",
     "pull": "yarn clear-docs && cross-var yarn docu-notion -n $DOCU_NOTION_INTEGRATION_TOKEN -r $DOCU_NOTION_SAMPLE_ROOT_PAGE -m ./docs -i ./static/notion_imgs -p /notion_imgs/",
