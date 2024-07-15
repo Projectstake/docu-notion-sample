@@ -1,0 +1,42 @@
+name: Download and Commit Notion Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      status_tag:
+        description: 'Status Tag'
+        required: true
+        type: string
+      commit_message:
+        description: 'Commit Message'
+        required: true
+        type: string
+
+jobs:
+  downloadand-commit-docs:
+    name: Download and Commit Notion Docs
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    env:
+      DOCU_NOTION_INTEGRATION_TOKEN: secret_AgA9yx78Br7CiACPGWkN3FyRABazElIMrTjzLoOJjoF
+      DOCU_NOTION_SAMPLE_ROOT_PAGE: 61b82186a94e4c9190c807869b4e5c19
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install and Build
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Download Notion docs
+        run: |
+          yarn install
+          yarn pull:status-tag ${{ inputs.status_tag }}
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: ${{ inputs.commit_message }}
+          push: true

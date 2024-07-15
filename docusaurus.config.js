@@ -8,14 +8,14 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "docu-notion sample site",
   tagline: "",
-  url: "https://sillsdev.github.io",
-  baseUrl: "/docu-notion-sample-site/",
+  url: "https://projectstake.github.io",
+  baseUrl: process.env.BASE_URL ? `${process.env.BASE_URL}/` : "/docu-notion-sample/",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
 
-  organizationName: "sillsdev", // Usually your GitHub org/user name.
-  projectName: "docu-notion-sample-site", // Usually your repo name.
+  organizationName: "projectstake", // Usually your GitHub org/user name.
+  projectName: "docu-notion-sample", // Usually your repo name.
   deploymentBranch: "gh-pages",
 
   presets: [
