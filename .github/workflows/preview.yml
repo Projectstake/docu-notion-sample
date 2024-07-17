@@ -28,6 +28,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build website
+        env:
+          BASE_URL: /docu-notion-sample/pr-preview/pr-${{ github.event.number }}
         run: yarn build
 
       - name: Deploy preview
