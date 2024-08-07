@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     env:
-      DOCU_NOTION_INTEGRATION_TOKEN: secret_AgA9yx78Br7CiACPGWkN3FyRABazElIMrTjzLoOJjoF
-      DOCU_NOTION_SAMPLE_ROOT_PAGE: 61b82186a94e4c9190c807869b4e5c19
+      DOCU_NOTION_INTEGRATION_TOKEN: ${{ secrets.DOCU_NOTION_TOKEN }}
+      DOCU_NOTION_SAMPLE_ROOT_PAGE: ${{ secrets.DOCU_NOTION_ROOT_PAGE }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
