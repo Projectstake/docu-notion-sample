@@ -1,0 +1,39 @@
+name: Preview and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, edited, reopened, synchronize, closed]
+  repository_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy to Cloudflare Pages
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
+      - name: Build website
+        run: npm run build
+
+      - name: Deploy
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          projectName: docu-notion-sample
+          directory: build
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
